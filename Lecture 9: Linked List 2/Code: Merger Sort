@@ -1,0 +1,74 @@
+Problem statement
+ Given a singly linked list of integers, sort it using 'Merge Sort.'
+
+Note :
+No need to print the list, it has already been taken care. Only return the new head to the list.
+
+
+public class Solution {
+
+    public static Node<Integer> mergeSort(Node<Integer> head) {
+        if (head == null || head.next == null) {
+            return head; // Base case: empty list or single-node list is already sorted
+        }
+
+        Node<Integer> middle = findMiddle(head);
+        Node<Integer> secondHalf = middle.next;
+        middle.next = null; // Break the list into two halves
+
+        Node<Integer> sortedFirstHalf = mergeSort(head);
+        Node<Integer> sortedSecondHalf = mergeSort(secondHalf);
+
+        return merge(sortedFirstHalf, sortedSecondHalf);
+    }
+
+    // Helper function to find the middle of a linked list
+    private static Node<Integer> findMiddle(Node<Integer> head) {
+        Node<Integer> slow = head;
+        Node<Integer> fast = head.next;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+
+    // Helper function to merge two sorted linked lists
+    private static Node<Integer> merge(Node<Integer> head1, Node<Integer> head2) {
+        Node<Integer> mergedHead = null;
+        Node<Integer> mergedTail = null;
+
+        while (head1 != null && head2 != null) {
+            if (head1.data <= head2.data) {
+                if (mergedHead == null) {
+                    mergedHead = head1;
+                    mergedTail = head1;
+                } else {
+                    mergedTail.next = head1;
+                    mergedTail = head1;
+                }
+                head1 = head1.next;
+            } else {
+                if (mergedHead == null) {
+                    mergedHead = head2;
+                    mergedTail = head2;
+                } else {
+                    mergedTail.next = head2;
+                    mergedTail = head2;
+                }
+                head2 = head2.next;
+            }
+        }
+
+        if (head1 != null) {
+            mergedTail.next = head1;
+        }
+        if (head2 != null) {
+            mergedTail.next = head2;
+        }
+
+        return mergedHead;
+    }
+}
