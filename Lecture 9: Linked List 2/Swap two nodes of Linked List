@@ -1,0 +1,66 @@
+Problem statement
+You have been given a singly linked list of integers along with two integers, 'i,' and 'j.' Swap the nodes that are present at the 'i-th' and 'j-th' positions and return the new head to the list.
+
+Note :
+1. Remember, You need to swap the nodes, not only the data.
+2. Indexing starts from 0.
+3. No need to print the list, it has already been taken care.
+
+
+
+public class Solution {
+
+    public static Node<Integer> swapNodes(Node<Integer> head, int i, int j) {
+        if (head == null || i == j) {
+            // Invalid input or no need to swap, return the original list
+            return head;
+        }
+
+        Node<Integer> prevI = null;
+        Node<Integer> currI = head;
+        int countI = 0;
+
+        // Traverse to the node at position i
+        while (currI != null && countI < i) {
+            prevI = currI;
+            currI = currI.next;
+            countI++;
+        }
+
+        Node<Integer> prevJ = null;
+        Node<Integer> currJ = head;
+        int countJ = 0;
+
+        // Traverse to the node at position j
+        while (currJ != null && countJ < j) {
+            prevJ = currJ;
+            currJ = currJ.next;
+            countJ++;
+        }
+
+        // If either i or j is out of bounds, return the original list
+        if (currI == null || currJ == null) {
+            return head;
+        }
+
+        // Update the previous pointers
+        if (prevI != null) {
+            prevI.next = currJ;
+        } else {
+            head = currJ;
+        }
+
+        if (prevJ != null) {
+            prevJ.next = currI;
+        } else {
+            head = currI;
+        }
+
+        // Swap the next pointers of the nodes at positions i and j
+        Node<Integer> temp = currI.next;
+        currI.next = currJ.next;
+        currJ.next = temp;
+
+        return head;
+    }
+}
