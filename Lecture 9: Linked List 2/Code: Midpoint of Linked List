@@ -1,0 +1,28 @@
+Problem statement
+For a given singly linked list of integers, find and return the node present at the middle of the list.
+
+Note :
+If the length of the singly linked list is even, then return the first middle node.
+
+Example: Consider, 10 -> 20 -> 30 -> 40 is the given list, then the nodes present at the middle with respective data values are, 20 and 30. We return the first node with data 20.
+
+
+public class Solution {
+    
+    public static Node<Integer> midPoint(Node<Integer> head) {
+        if (head == null || head.next == null) {
+            return head; // Empty list or single-node list
+        }
+
+        Node<Integer> slow = head;
+        Node<Integer> fast = head;
+
+        // Move 'fast' pointer to the middle of the list
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+}
