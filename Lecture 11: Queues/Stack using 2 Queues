@@ -1,0 +1,117 @@
+Problem statement
+Implement a Stack Data Structure specifically to store integer data using two Queues. You have to implement it in such a way that the push operation is done in O(1) time and the pop and top operations are done in O(N) time.
+
+There should be two data members, both being Queues to store the data internally. You may use the inbuilt Queue.
+
+Implement the following public functions :
+
+1. Constructor:
+It initialises the data members as required.
+
+2. push(data) :
+This function should take one argument of type integer. It pushes the element into the stack and returns nothing.
+
+3. pop() :
+It pops the element from the top of the stack and in turn, returns the element being popped or deleted. In case the stack is empty, it returns -1.
+
+4. top :
+It returns the element being kept at the top of the stack. In case the stack is empty, it returns -1.
+
+5. size() :
+It returns the size of the stack at any given instance of time.
+
+6. isEmpty() :
+It returns a boolean value indicating whether the stack is empty or not.
+
+Operations Performed on the Stack:
+Query-1(Denoted by an integer 1): Pushes an integer data to the stack.
+
+Query-2(Denoted by an integer 2): Pops the data kept at the top of the stack and returns it to the caller.
+
+Query-3(Denoted by an integer 3): Fetches and returns the data being kept at the top of the stack but doesn't remove it, unlike the pop function.
+
+Query-4(Denoted by an integer 4): Returns the current size of the stack.
+
+Query-5(Denoted by an integer 5): Returns a boolean value denoting whether the stack is empty or not.
+
+
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class Stack {
+
+    private Queue<Integer> queue1;
+    private Queue<Integer> queue2;
+
+    public Stack() {
+        queue1 = new LinkedList<>();
+        queue2 = new LinkedList<>();
+    }
+
+    public int getSize() {
+        return queue1.size() + queue2.size();
+    }
+
+    public boolean isEmpty() {
+        return getSize() == 0;
+    }
+
+    public void push(int element) {
+        // Add the element to the non-empty queue
+        if (!queue1.isEmpty()) {
+            queue1.offer(element);
+        } else {
+            queue2.offer(element);
+        }
+    }
+
+    public int pop() {
+        if (isEmpty()) {
+            return -1; // Stack is empty
+        }
+
+        // Move elements from the non-empty queue to the empty queue
+        Queue<Integer> nonEmptyQueue = queue1.isEmpty() ? queue2 : queue1;
+        Queue<Integer> emptyQueue = queue1.isEmpty() ? queue1 : queue2;
+
+        while (nonEmptyQueue.size() > 1) {
+            emptyQueue.offer(nonEmptyQueue.poll());
+        }
+
+        // Pop and return the top element from the non-empty queue
+        return nonEmptyQueue.poll();
+    }
+
+    public int top() {
+        if (isEmpty()) {
+            return -1; // Stack is empty
+        }
+
+        // Move elements from the non-empty queue to the empty queue
+        Queue<Integer> nonEmptyQueue = queue1.isEmpty() ? queue2 : queue1;
+        Queue<Integer> emptyQueue = queue1.isEmpty() ? queue1 : queue2;
+
+        while (nonEmptyQueue.size() > 1) {
+            emptyQueue.offer(nonEmptyQueue.poll());
+        }
+
+        // Get and return the top element from the non-empty queue without removing it
+        int topElement = nonEmptyQueue.poll();
+        emptyQueue.offer(topElement);
+
+        return topElement;
+    }
+
+    public static void main(String[] args) {
+        Stack stack = new Stack();
+
+        stack.push(13);
+        stack.push(47);
+
+        System.out.println(stack.getSize()); // Output: 2
+        System.out.println(stack.isEmpty()); // Output: false
+        System.out.println(stack.pop());     // Output: 47
+        System.out.println(stack.top());     // Output: 13
+    }
+}
