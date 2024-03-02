@@ -1,0 +1,50 @@
+Problem statement
+You have been given a head to a singly linked list of integers. Write a function check to whether the list given is a 'Palindrome' or not.
+
+
+public class Solution {
+
+	public static boolean isPalindrome(Node<Integer> head) {
+		if (head == null || head.next == null) {
+            return true; // Empty list or single-node list is considered a palindrome
+        }
+
+        Node<Integer> slow = head;
+        Node<Integer> fast = head;
+
+        // Move 'fast' pointer to the middle of the list
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        Node<Integer> secondHalf = reverseList(slow.next);
+        Node<Integer> firstHalf = head;
+
+        // Compare the reversed second half with the first half
+        while (secondHalf != null) {
+            if (!firstHalf.data.equals(secondHalf.data)) {
+                return false;
+            }
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
+        }
+
+        return true;
+	}
+
+    // Helper function to reverse a linked list
+    private static Node<Integer> reverseList(Node<Integer> head) {
+        Node<Integer> prev = null;
+        Node<Integer> current = head;
+
+        while (current != null) {
+            Node<Integer> nextNode = current.next;
+            current.next = prev;
+            prev = current;
+            current = nextNode;
+        }
+
+        return prev;
+    }
+}
