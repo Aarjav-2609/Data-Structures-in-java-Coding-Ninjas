@@ -1,0 +1,16 @@
+Problem statement
+Given the head of a singly linked list of integers, find and return its length.
+
+public class Solution {
+    public static int length(Node head) {
+        int count = 0;
+        Node current = head;
+
+        while (current != null) {
+            count++;
+            current = current.next;
+        }
+
+        return count;
+    }
+}
