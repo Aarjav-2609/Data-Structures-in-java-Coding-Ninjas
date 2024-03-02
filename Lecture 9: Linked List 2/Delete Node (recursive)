@@ -1,0 +1,24 @@
+Problem statement
+Given a singly linked list of integers and position 'i', delete the node present at the 'i-th' position in the linked list recursively.
+
+ Note :
+Assume that the Indexing for the linked list always starts from 0.
+
+No need to print the list, it has already been taken care. Only return the new head to the list.
+
+
+public class Solution {
+
+    public static Node<Integer> deleteNodeRec(Node<Integer> head, int pos) {
+        if (head == null) {
+            return null; // Base case: empty list
+        }
+
+        if (pos == 0) {
+            return head.next; // Delete the first node
+        }
+
+        head.next = deleteNodeRec(head.next, pos - 1); // Recursively delete the node at position pos-1
+        return head;
+    }
+}
