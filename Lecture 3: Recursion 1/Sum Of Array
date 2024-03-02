@@ -1,0 +1,27 @@
+Problem statement
+Given an array of length N, you need to find and return the sum of all elements of the array.
+
+Do this recursively.
+
+public class Solution {
+    public static int sum(int input[]) {
+        return sumHelper(input, 0);
+    }
+
+    private static int sumHelper(int input[], int index) {
+        if (index == input.length) {
+            // Base case: if the index reaches the end of the array, return 0
+            return 0;
+        } else {
+            // Recursive case: add the current element to the sum of the rest of the array
+            return input[index] + sumHelper(input, index + 1);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Example usage:
+        int[] array = {1, 2, 3, 4, 5};
+        int result = sum(array);
+        System.out.println("Sum of elements in the array: " + result);
+    }
+}
