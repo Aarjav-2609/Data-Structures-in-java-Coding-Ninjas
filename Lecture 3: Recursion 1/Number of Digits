@@ -1,0 +1,48 @@
+Problem statement
+You are given a number 'n'.
+
+
+
+Return number of digits in ‘n’.
+
+
+
+Example:
+Input: 'n' = 123
+
+Output: 3
+
+Explanation:
+The 3 digits in ‘123’ are 1, 2 and 3. 
+
+
+import java.util.Scanner;
+
+public class Solution {
+    public static int countDigits(int n) {
+        if (n < 0) {
+            // Handle negative numbers by taking absolute value
+            n = Math.abs(n);
+        }
+
+        if (n < 10) {
+            // Base case: if the number is less than 10, it has 1 digit
+            return 1;
+        } else {
+            // Recursively count digits in the remaining part of the number
+            return 1 + countDigits(n / 10);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter a number: ");
+        int number = scanner.nextInt();
+
+        int result = countDigits(number);
+        System.out.println("Number of digits in " + number + ": " + result);
+
+        scanner.close();
+    }
+}
