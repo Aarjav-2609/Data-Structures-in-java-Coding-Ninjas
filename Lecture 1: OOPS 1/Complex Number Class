@@ -1,0 +1,43 @@
+Problem statement
+
+A ComplexNumber class contains two data members : one is the real part (R) and the other is imaginary (I) (both integers).
+Implement the Complex numbers class that contains following functions -
+1. constructor
+You need to create the appropriate constructor.
+2. plus -
+This function adds two given complex numbers and updates the first complex number.
+
+class ComplexNumber:
+    def __init__(self, real, imaginary):
+        self.real = real
+        self.imaginary = imaginary
+
+    def plus(self, other):
+        self.real += other.real
+        self.imaginary += other.imaginary
+
+    def multiply(self, other):
+        new_real = self.real * other.real - self.imaginary * other.imaginary
+        new_imaginary = self.real * other.imaginary + self.imaginary * other.real
+        self.real, self.imaginary = new_real, new_imaginary
+
+    def print(self):
+        print(f"{self.real} + i{self.imaginary}")
+
+# Read input
+real1, imag1 = map(int, input().split())
+real2, imag2 = map(int, input().split())
+operation = int(input())
+
+# Create ComplexNumber objects
+C1 = ComplexNumber(real1, imag1)
+C2 = ComplexNumber(real2, imag2)
+
+# Perform the specified operation
+if operation == 1:
+    C1.plus(C2)
+elif operation == 2:
+    C1.multiply(C2)
+
+# Print the result
+C1.print()
