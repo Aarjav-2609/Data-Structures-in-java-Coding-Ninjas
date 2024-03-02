@@ -1,0 +1,29 @@
+Problem statement
+Given a singly linked list of integers and an integer n, find and return the index for the first occurrence of 'n' in the linked list. -1 otherwise.
+
+Follow a recursive approach to solve this.
+
+Note :
+Assume that the Indexing for the linked list always starts from 0.
+
+
+public class Solution {
+
+    public static int findNodeRec(Node<Integer> head, int n) {
+        // Base case: if the current node is null, return -1
+        if (head == null) {
+            return -1;
+        }
+
+        // If the data at the current node is equal to n, return the current index (0-based)
+        if (head.data == n) {
+            return 0;
+        }
+
+        // Recursive call on the rest of the linked list
+        int result = findNodeRec(head.next, n);
+
+        // If the result is -1 (not found), return -1; otherwise, add 1 to the result
+        return (result == -1) ? -1 : (result + 1);
+    }
+}
