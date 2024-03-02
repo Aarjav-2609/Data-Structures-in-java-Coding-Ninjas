@@ -1,0 +1,37 @@
+Problem statement
+For a given expression in the form of a string, find if there exist any redundant brackets or not. It is given that the expression contains only rounded brackets or parenthesis and the input expression will always be balanced.
+
+A pair of the bracket is said to be redundant when a sub-expression is surrounded by unnecessary or needless brackets.
+
+
+import java.util.Stack;
+
+public class Solution {
+
+    public static boolean checkRedundantBrackets(String expression) {
+        Stack<Character> stack = new Stack<>();
+
+        for (char ch : expression.toCharArray()) {
+            if (ch == ')') {
+                char top = stack.pop();
+                boolean hasOperators = false;
+
+                while (top != '(') {
+                    if (top == '+' || top == '-' || top == '*' || top == '/') {
+                        hasOperators = true;
+                    }
+
+                    top = stack.pop();
+                }
+
+                if (!hasOperators) {
+                    return true; // Redundant brackets found
+                }
+            } else {
+                stack.push(ch);
+            }
+        }
+
+        return false; // No redundant brackets found
+    }
+}
