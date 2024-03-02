@@ -1,0 +1,37 @@
+Problem statement
+Determine if a given string ‘S’ is a palindrome using recursion. Return a Boolean value of true if it is a palindrome and false if it is not.
+
+Note: You are not required to print anything, just implement the function. Example:
+Input: s = "racecar"
+Output: true
+Explanation: "racecar" is a palindrome.
+
+
+import java.util.Scanner;
+
+public class Solution {
+    public static boolean isPalindrome(String str) {
+        if (str.length() <= 1) {
+            return true;
+        }
+
+        char firstChar = str.charAt(0);
+        char lastChar = str.charAt(str.length() - 1);
+
+        if (firstChar == lastChar) {
+            return isPalindrome(str.substring(1, str.length() - 1));
+        } else {
+            return false;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter a string:");
+        String inputStr = scanner.nextLine();
+
+        boolean result = isPalindrome(inputStr);
+        System.out.println("Is the input string a palindrome? " + result);
+    }
+}
