@@ -1,0 +1,53 @@
+Problem statement
+Given an array of length N and an integer x, you need to find all the indexes where x is present in the input array. Save all the indexes in the output array (in increasing order).
+
+Do this recursively. Indexing in the array starts from 0.
+
+Hint:
+Try making a helper function with the required arguments and call the helper function from the allIndexes function.
+
+public class Solution {
+    public static int[] allIndexes(int input[], int x) {
+        return allIndexesHelper(input, x, 0, 0);
+    }
+
+    private static int[] allIndexesHelper(int input[], int x, int index, int count) {
+        if (index == input.length) {
+            // Base case: if the index reaches the end of the array, create an array of indexes
+            int[] indexes = new int[count];
+            return populateIndexes(input, x, 0, indexes, 0);
+        } else if (input[index] == x) {
+            // Recursive case: if x is found at the current index, increment count
+            return allIndexesHelper(input, x, index + 1, count + 1);
+        } else {
+            // Recursive case: continue searching for x
+            return allIndexesHelper(input, x, index + 1, count);
+        }
+    }
+
+    private static int[] populateIndexes(int input[], int x, int index, int indexes[], int count) {
+        if (index == input.length) {
+            // Base case: if the index reaches the end of the array, return the populated array of indexes
+            return indexes;
+        } else if (input[index] == x) {
+            // Recursive case: populate the array with the current index
+            indexes[count] = index;
+            return populateIndexes(input, x, index + 1, indexes, count + 1);
+        } else {
+            // Recursive case: continue populating indexes
+            return populateIndexes(input, x, index + 1, indexes, count);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Example usage:
+        int[] array = {1, 2, 3, 4, 5, 3, 6, 3};
+        int x = 3;
+        int[] result = allIndexes(array, x);
+
+        System.out.println("Indexes where " + x + " is present: ");
+        for (int index : result) {
+            System.out.print(index + " ");
+        }
+    }
+}
