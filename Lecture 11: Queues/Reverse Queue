@@ -1,0 +1,43 @@
+Problem statement
+You have been given a queue that can store integers as the data. You are required to write a function that reverses the populated queue itself without using any other data structures.
+
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class Solution {
+
+    public static void reverseQueue(Queue<Integer> input) {
+        if (input.isEmpty()) {
+            return;
+        }
+
+        // Dequeue the front element
+        int frontElement = input.poll();
+
+        // Reverse the remaining queue
+        reverseQueue(input);
+
+        // Enqueue the front element back to the queue
+        input.offer(frontElement);
+    }
+
+    public static void main(String[] args) {
+        Queue<Integer> inputQueue = new LinkedList<>();
+        inputQueue.offer(1);
+        inputQueue.offer(2);
+        inputQueue.offer(3);
+        inputQueue.offer(4);
+        inputQueue.offer(5);
+        inputQueue.offer(10);
+
+        // Print the original queue
+        System.out.println("Original Queue: " + inputQueue);
+
+        // Reverse the queue
+        reverseQueue(inputQueue);
+
+        // Print the reversed queue
+        System.out.println("Reversed Queue: " + inputQueue);
+    }
+}
