@@ -1,0 +1,34 @@
+Problem statement
+Given a Singly Linked List of integers, delete all the alternate nodes in the list.
+
+Example:
+List: 10 -> 20 -> 30 -> 40 -> 50 -> 60 -> null
+Alternate nodes will be:  20, 40, and 60.
+
+Hence after deleting, the list will be:
+Output: 10 -> 30 -> 50 -> null
+Note :
+The head of the list will remain the same. Don't need to print or return anything.
+
+
+public class Solution {
+
+    public static void deleteAlternateNodes(Node<Integer> head) {
+        if (head == null || head.next == null) {
+            // If the list is empty or has only one element, no alteration needed.
+            return;
+        }
+
+        Node<Integer> current = head;
+        while (current != null && current.next != null) {
+            // Save the next node of the node to be deleted
+            Node<Integer> nextNext = current.next.next;
+
+            // Delete the alternate node
+            current.next = nextNext;
+
+            // Move to the next node (skipping the node that was just deleted)
+            current = nextNext;
+        }
+    }
+}
