@@ -1,0 +1,26 @@
+Problem statement
+For a given a singly linked list of integers and a position 'i', print the node data at the 'i-th' position.
+
+ Note :
+Assume that the Indexing for the singly linked list always starts from 0.
+
+If the given position 'i',  is greater than the length of the given singly linked list, then don't print anything.
+
+
+
+public class Solution {
+
+    public static void printIthNode(Node<Integer> head, int i) {
+        int count = 0;
+        Node<Integer> current = head;
+
+        while (current != null) {
+            if (count == i) {
+                System.out.println(current.data);
+                return;
+            }
+            current = current.next;
+            count++;
+        }
+    }
+}
