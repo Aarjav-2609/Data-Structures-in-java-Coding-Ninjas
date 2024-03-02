@@ -1,0 +1,40 @@
+Problem statement
+Given a singly linked list of integers, sort it using 'Bubble Sort.'
+
+Note :
+No need to print the list, it has already been taken care. Only return the new head to the list.
+
+
+public class Solution {
+
+    public static Node<Integer> bubbleSort(Node<Integer> head) {
+        if (head == null || head.next == null) {
+            // Empty list or a single node, already sorted
+            return head;
+        }
+
+        boolean swapped;
+        Node<Integer> current, last = null;
+
+        do {
+            swapped = false;
+            current = head;
+
+            while (current.next != last) {
+                if (current.data > current.next.data) {
+                    // Swap the nodes
+                    int temp = current.data;
+                    current.data = current.next.data;
+                    current.next.data = temp;
+                    swapped = true;
+                }
+
+                current = current.next;
+            }
+
+            last = current;
+        } while (swapped);
+
+        return head;
+    }
+}
