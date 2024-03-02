@@ -1,0 +1,21 @@
+Problem statement Given the number 'n', write a code to print numbers from 1 to n in increasing order recursively.
+
+public class Solution {
+    public static void print(int n) {
+        if (n <= 0) {
+            // Base case: stop when n becomes non-positive
+            return;
+        } else {
+            // Print numbers from 1 to n in increasing order
+            print(n - 1);
+            System.out.print(n + " ");
+        }
+    }
+
+    public static void main(String[] args) {
+        // Example usage:
+        int n = 5; // You can change this value
+        System.out.print("Numbers from 1 to " + n + " in increasing order: ");
+        print(n);
+    }
+}
